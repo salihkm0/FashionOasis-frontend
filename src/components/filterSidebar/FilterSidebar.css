@@ -1,0 +1,48 @@
+.filter-label{
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.filter-radio-select{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.filter-checkmark{
+    position: relative;
+    /* top: 0;
+    left: 0; */
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+.filter-label:hover input ~ .filter-checkmark {
+    background-color: #ccc;
+}
+.filter-label input:checked ~ .filter-checkmark {
+    background-color: #213df3;
+}
+.filter-checkmark::after{
+    content: '';
+    position: absolute;
+    display: none;
+}
+.filter-label input:checked ~ .filter-checkmark::after{
+    display: block;
+}
+.filter-label .filter-checkmark::after{
+    top: 4.2px;
+    left: 4.2px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+}
+
+.allColor{
+    background:linear-gradient(blue,crimson) ;
+}
