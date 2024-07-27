@@ -1,12 +1,60 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import GoogleLoginButton from "../../googleAuth/GoogleLoginButton";
 
 export const Login = () => {
+  const navigate = useNavigate();
+
+  const schema = yup
+    .object({
+      email: yup
+        .string()
+        .email("Invalid email format")
+        .required("Email is required"),
+      password: yup.string().required("Password is required"),
+    })
+    .required();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const res = await axios.post(
+        "http://localhost:5555/api/v1/signin",
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+      if (res.data.success) {
+        toast.success("Login Success!");
+        return navigate("/");
+      } else {
+        // alert(res.data.message);
+        toast.error(`Login Failed! ${res.data.message}`);
+        return navigate("/signin");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <section className="">
         <Link to={"/"}>
-          <div className="ms-10 mt-10 border border-gray-500 w-[140px] rounded-md flex items-center justify-center">
+          <div className="ms-10 mt-10 border border-gray-500 w-[140px] rounded-md flex items-start justify-center">
             <p className="text-gray-600 ">Back to Home</p>
           </div>
         </Link>
@@ -22,7 +70,10 @@ export const Login = () => {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl darktext-gray-900">
                 Welcome Back.
               </h1>
-              <form className="space-y-4 md:space-y-6" action="#">
+              <form
+                className="space-y-4 md:space-y-6"
+                onSubmit={handleSubmit(onSubmit)}
+              >
                 <div>
                   <label
                     htmlFor="email"
@@ -36,8 +87,14 @@ export const Login = () => {
                     id="email"
                     className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
-                    required
+                    // required
+                    {...register("email")}
                   />
+                  {errors.email && (
+                    <p className="text-sm text-red-500">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -52,8 +109,14 @@ export const Login = () => {
                     id="password"
                     placeholder="••••••••"
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
+                    // required
+                    {...register("password")}
                   />
+                  {errors.password && (
+                    <p className="text-sm text-red-500">
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
                 <div className="flex items-start">
                   <div className="flex items-center h-5">
@@ -89,7 +152,7 @@ export const Login = () => {
                 <hr className="w-full h-[2px] border-1 border-gray-500" />
 
                 <div className="flex items-center gap-1">
-                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                     or <span>Login with</span>
                   </p>
                   <Link>
@@ -98,7 +161,8 @@ export const Login = () => {
                       src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
                       alt="google"
                     />
-                  </Link>
+                  </Link> */}
+                  <GoogleLoginButton/>
                 </div>
 
                 <p className="text-sm font-light text-gray-500 dark:text-gray-500">

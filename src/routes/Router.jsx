@@ -12,12 +12,9 @@ import { RegisterPage } from "../pages/RegisterPage";
 import { CheckoutPage } from "../pages/CheckoutPage";
 import { OrderSummary } from "../pages/OrderSummary";
 import { MyOrders } from "../pages/MyOrders";
+import { ProfilePage } from "../pages/ProfilePage";
+// import { GustLayout } from "../layout/gustLayout/GustLayout";
 export const router = createBrowserRouter([
-    //gust routes
-    // {
-    //   path: "/admin/signin",
-    //   element: <AdminSignin />,
-    // }
     {
       path: "/signin",
       element: <LoginPage />,
@@ -26,6 +23,8 @@ export const router = createBrowserRouter([
       path: "/register",
       element: <RegisterPage />,
     },
+
+
     // admin routes
     {
       element: <AdminLayout />,
@@ -80,39 +79,41 @@ export const router = createBrowserRouter([
           path: "/about",
           element : <About/>
         },
-        // {
-        //   path: "/about",
-        //   element: <AboutPage />,
-        // },
-        // // {
-        // //   path: "/shop",
-        // //   element: <ShopPage />,
-        // // },
         {
           path: "/shop",
           element: <AllProductPage />,
         },
         {
-          path: "/cart",
-          element: <CartPage />,
-        },
-        {
-          path: "/checkout",
-          element: <CheckoutPage/>,
-        },
-        {
-          path: "/order-summary/:id",
-          element: <OrderSummary />,
-        },
-        {
-          path: "/my-orders",
-          element: <MyOrders />,
-        },
-        {
           path: "/product/:id",
           element: <ProductInfoPage/>,
         },
+        {
+          path: "/user/cart",
+          element: <CartPage />,
+        },
+        {
+          path: "/user/checkout",
+          element: <CheckoutPage/>,
+        },
+        {
+          path: "/user/order-summary/:id",
+          element: <OrderSummary />,
+        },
+        {
+          path: "/user/my-orders",
+          element: <MyOrders />,
+        },
+        {
+          path: "/user/profile",
+          element: <ProfilePage/>,
+        },
       ],
     },
+    // {
+    //   element: <GustLayout />,
+    //   children: [
+        
+    //   ],
+    // },
   ]);
   

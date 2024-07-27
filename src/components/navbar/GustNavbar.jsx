@@ -1,24 +1,14 @@
 import { Link } from "react-router-dom";
 import { Searchbar } from "../searchbar/Searchbar.jsx";
-import { useSelector } from "react-redux";
-import GoogleLogoutButton from "../googleAuth/GoogleLogoutButton.jsx";
 
-export const Navbar = () => {
-  const { user, status } = useSelector((state) => state.auth);
-
-  // console.log("dfmewkmf", user)
+export const GustNavbar = () => {
   // navList Data
   const navigation = [
     { name: "Home", to: "/", current: true },
     { name: "Shop", to: "/shop", current: false },
     { name: "About", to: "/about", current: false },
-    { name: "Cart", to: "/user/cart", current: false },
-    {
-      name: `${user !== null && user._id ? "Profile" : "Login"}`,
-      to: `${user !== null && user._id ? "/user/profile" : "/signin"}`,
-      current: false,
-    },
-
+    // { name: "Cart", to: "/cart", current: false },
+    { name: "Logo", to: "/signin", current: false },
     // { name: "Admin Dashboard", to: "/admin/", current: false },
   ];
   return (
@@ -43,13 +33,6 @@ export const Navbar = () => {
                 <Link to={item.to}>{item.name}</Link>
               </li>
             ))}
-            {user !== null && user._id ? (
-              <li>
-                <GoogleLogoutButton/>
-              </li>
-            ) : (
-              ""
-            )}
           </ul>
         </div>
 

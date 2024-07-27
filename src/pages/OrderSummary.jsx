@@ -1,4 +1,5 @@
 import React from "react";
+import OrderTracking from "../components/orderTacking/OrderTracking";
 
 export const OrderSummary = () => {
   return (
@@ -16,20 +17,23 @@ export const OrderSummary = () => {
             <div className="flex flex-col lg:flex-row lg:items-center justify-between px-6 pb-6 border-b border-gray-200">
               <div className="data">
                 <p className="font-semibold text-base leading-7 text-black">
-                  Order Id:{" "}
+                  Order Id:
                   <span className="text-indigo-600 font-medium">#10234987</span>
                 </p>
                 <p className="font-semibold text-base leading-7 text-black mt-4">
-                  Order Payment :{" "}
+                  Order Payment :
                   <span className="text-gray-400 font-medium">
-                    {" "}
+                    
                     18th march 2021
                   </span>
                 </p>
               </div>
-              <button className="rounded-full py-3 px-7 font-semibold text-sm leading-7 text-white bg-indigo-600 max-lg:mt-5 shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">
+              {/* <button className="rounded-full py-3 px-7 font-semibold text-sm leading-7 text-white bg-indigo-600 max-lg:mt-5 shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">
                 Track Your Order
-              </button>
+              </button> */}
+              <div className="w-full lg:w-[70%] mt-5 lg:mt-0">
+              <OrderTracking/>
+              </div>
             </div>
             <div className="w-full px-3 min-[400px]:px-6">
               <div className="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
@@ -180,7 +184,7 @@ export const OrderSummary = () => {
                   Cancel Order
                 </button>
                 <p className="font-medium text-lg text-gray-900 pl-6 py-3 max-lg:text-center">
-                  Paid using Credit Card{" "}
+                  Paid using Credit Card
                   <span className="text-gray-500">ending with 8822</span>
                 </p>
               </div>

@@ -109,8 +109,6 @@ export const AllProductPage = () => {
     ));
   }
 
-
-
   const result = filteredData(productData, selectedSubCategory, selectedColor, priceSort, priceRange,selectedCategory);
 
   return (

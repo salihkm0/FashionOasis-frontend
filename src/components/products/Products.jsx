@@ -12,7 +12,13 @@ const Products = ({
 }) => {
   // const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const [productsPerPage, setProductsPerPage] = useState(8);
+  const itemsPerPage = productsPerPage;
+
+  const handleProductsPerPage = (e) => {
+    setProductsPerPage(e.target.value);
+  };
+
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -75,11 +81,16 @@ const Products = ({
               count={totalPages}
               page={currentPage}
               onChange={handlePageChange}
+              handleProductsPerPage = {handleProductsPerPage}
             />
           </>
         ) : (
-          <p className="w-full h-full flex justify-center items-center font-bold text-lg">Products not Available Now. Please check later....</p>
+          <p className="w-full h-full flex justify-center items-center font-bold text-lg">
+            Products not Available Now. Please check later....
+          </p>
         )}
+
+        
       </div>
     </>
   );
