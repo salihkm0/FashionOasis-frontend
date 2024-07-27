@@ -6,6 +6,7 @@ import { ScrollTop } from "../../components/scrollTop/ScrollTop";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "../../redux/authSlice";
 import { fetchProducts } from "../../redux/productsSlice";
+import { Loading } from "../../components/loading/Loading";
 // import { fetchCurrentUser } from '../../redux/authSlice';
 
 
@@ -13,6 +14,7 @@ export const UserLayout = () => {
   const dispatch = useDispatch();
   const { user, status } = useSelector((state) => state.auth);
   const { products, productStatus, error } = useSelector((state) => state.products);
+
 
   
   useEffect(() => {
@@ -25,10 +27,9 @@ export const UserLayout = () => {
   }, [status, dispatch ,productStatus,user]);
 
   if (status === 'loading') {
-    return <div>Loading...</div>;
+    return <Loading/>;
+    // return <div>Loading...</div>;
   }
-
-
 
 
   console.log('products' , products)

@@ -17,7 +17,8 @@ const Profile = () => {
   }, [status, dispatch]);
 
   if (status === 'loading') {
-    return <div>Loading...</div>;
+    return <Loading/>;
+    // return <div>Loading...</div>;
   }
 
   return (
