@@ -3,6 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { clearUser } from '../../redux/authSlice';
+import Cookies from 'js-cookie'
 
 const GoogleLogoutButton = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const GoogleLogoutButton = () => {
       withCredentials: true
     });
     dispatch(clearUser());
+    // Cookies.set('token', '')
+    Cookies.remove('token')
+
   };
 
   return <button onClick={handleLogout}>Log Out</button>;

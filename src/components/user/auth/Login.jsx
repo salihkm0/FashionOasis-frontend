@@ -6,6 +6,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import GoogleLoginButton from "../../googleAuth/GoogleLoginButton";
+import GithubLogin from "../../gitHubAuth/GithubLoginButton";
+import { Stack } from "@mui/material";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -126,6 +128,8 @@ export const Login = () => {
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       required
+                      checked
+                      disabled
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -151,19 +155,18 @@ export const Login = () => {
                 </button>
                 <hr className="w-full h-[2px] border-1 border-gray-500" />
 
-                <div className="flex items-center gap-1">
-                  {/* <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                {/* <div className="">
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                     or <span>Login with</span>
                   </p>
-                  <Link>
-                    <img
-                      className="w-[30px]"
-                      src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-                      alt="google"
-                    />
-                  </Link> */}
+
+                  <Stack spacing={2} width={'100%'} marginTop={"10px"}>
                   <GoogleLoginButton/>
-                </div>
+                  <GithubLogin/>
+                  </Stack>
+                  
+                  
+                </div> */}
 
                 <p className="text-sm font-light text-gray-500 dark:text-gray-500">
                   Don't have an account yet?
@@ -182,3 +185,5 @@ export const Login = () => {
     </>
   );
 };
+
+

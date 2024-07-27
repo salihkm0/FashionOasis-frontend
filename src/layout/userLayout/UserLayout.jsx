@@ -22,14 +22,14 @@ export const UserLayout = () => {
     if (productStatus === 'idle') {
       dispatch(fetchProducts());
     }
-  }, [status, dispatch ,productStatus]);
+  }, [status, dispatch ,productStatus,user]);
 
   if (status === 'loading') {
     return <div>Loading...</div>;
   }
 
 
-  
+
 
   console.log('products' , products)
 

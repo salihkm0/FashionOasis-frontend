@@ -23,8 +23,7 @@ const Profile = () => {
   return (
     user ? (
       <div>
-        <img src={user.image} alt={user.displayName} />
-        <h2>{user.displayName}</h2>
+        <h2>{user.name}</h2>
         <p>{user.email}</p>
       </div>
     ) : (

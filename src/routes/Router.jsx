@@ -13,10 +13,21 @@ import { CheckoutPage } from "../pages/CheckoutPage";
 import { OrderSummary } from "../pages/OrderSummary";
 import { MyOrders } from "../pages/MyOrders";
 import { ProfilePage } from "../pages/ProfilePage";
+import { AllProducts } from "../pages/admin/AllProducts";
+import { AllUsers } from "../pages/admin/AllUsers";
+import { AllCoupon } from "../pages/admin/AllCoupon";
+import { AllOrders } from "../pages/admin/AllOrders";
+import { SellerLayout } from "../layout/sellerLayout/SellerLayout";
+import { SellerDashboard } from "../pages/seller/SellerDashboard";
+import { AuthOptionSelectPage } from "../pages/AuthOptionSelectPage";
 // import { GustLayout } from "../layout/gustLayout/GustLayout";
 export const router = createBrowserRouter([
     {
       path: "/signin",
+      element: <AuthOptionSelectPage />,
+    },
+    {
+      path: "/signin/email",
       element: <LoginPage />,
     },
     {
@@ -34,33 +45,29 @@ export const router = createBrowserRouter([
           element: <AdminDashboard />,
         },
     //     {
-    //       path: "/admin/profile",
-    //       element: <AdminProfile />,
-    //     },
-    //     {
     //       path: "/products/add",
     //       element: <AddProductPage />,
     //     },
-    //     {
-    //       path: "/products",
-    //       element: <ProductLists />,
-    //     },
-    //     {
-    //       path: "/coupons",
-    //       element: <CouponPage />,
-    //     },
-    //     {
-    //       path: "/sellers",
-    //       element: <SellerPage />,
-    //     },
+        {
+          path: "/admin/products",
+          element: <AllProducts />,
+        },
+        {
+          path: "/admin/coupons",
+          element: <AllCoupon />,
+        },
+        {
+          path: "/admin/users",
+          element: <AllUsers />,
+        },
     //     {
     //       path: "/customers",
     //       element: <CustomersPage />,
     //     },
-    //     {
-    //       path: "/orders",
-    //       element: <OrderPage />,
-    //     },
+        {
+          path: "/admin/orders",
+          element: <AllOrders />,
+        },
     //     {
     //       path: "/categories",
     //       element: <CategoriesPage />,
@@ -109,11 +116,30 @@ export const router = createBrowserRouter([
         },
       ],
     },
-    // {
-    //   element: <GustLayout />,
-    //   children: [
-        
-    //   ],
-    // },
+    {
+      element: <SellerLayout />,
+      children: [
+        {
+          path: "/seller/dashboard",
+          element: <SellerDashboard />,
+        },
+        {
+          path: "/seller/products",
+          element: <AllProducts />,
+        },
+        {
+          path: "/seller/coupons",
+          element: <AllCoupon />,
+        },
+        {
+          path: "/seller/dashboard",
+          element: <AdminDashboard />,
+        },
+        {
+          path: "/seller/orders",
+          element: <AllOrders />,
+        },
+      ],
+    },
   ]);
   

@@ -6,42 +6,45 @@ import * as yup from "yup";
 import axios from "axios";
 // import { useRecoilState } from "recoil";
 import { toast } from "react-hot-toast";
+import { Stack } from "@mui/material";
+import GoogleLoginButton from "../../googleAuth/GoogleLoginButton";
+import GithubLogin from "../../gitHubAuth/GithubLoginButton";
 
 export const Register = () => {
   const navigate = useNavigate();
 
-   const schema = yup
-    .object({
-      firstName: yup.string().required(),
-      lastName: yup.string().required(),
-      email: yup.string().email().required(),
-      password: yup.string().min(6),
-    })
-    .required();
-
-  // const passwordRegEx =
-  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   // const schema = yup
   //   .object({
-  //     name: yup.string().required("Name is required"),
-  //     email: yup
-  //       .string()
-  //       .email("Invalid email format")
-  //       .required("Email is required"),
-  //     emptyPass: yup.string().required("Password is required"),
-  //     password: yup
-  //       .string()
-  //       .matches(/[a-z]/, "A lowercase letter")
-  //       .matches(/[A-Z]/, "A capital (uppercase) letter")
-  //       .matches(/\d/, "A number")
-  //       .matches(passwordRegEx, "Minimum 8 characters")
-  //       .required("Password is required"),
-  //     confirmPassword: yup
-  //       .string()
-  //       .oneOf([yup.ref("password"), null], "Passwords must match")
-  //       .required("Confirm password is required"),
+  //     firstName: yup.string().required(),
+  //     lastName: yup.string().required(),
+  //     email: yup.string().email().required(),
+  //     password: yup.string().min(6),
   //   })
   //   .required();
+
+  const passwordRegEx =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const schema = yup
+    .object({
+      name: yup.string().required("Name is required"),
+      email: yup
+        .string()
+        .email("Invalid email format")
+        .required("Email is required"),
+      emptyPass: yup.string().required("Password is required"),
+      password: yup
+        .string()
+        .matches(/[a-z]/, "A lowercase letter")
+        .matches(/[A-Z]/, "A capital (uppercase) letter")
+        .matches(/\d/, "A number")
+        .matches(passwordRegEx, "Minimum 8 characters")
+        .required("Password is required"),
+      confirmPassword: yup
+        .string()
+        .oneOf([yup.ref("password"), null], "Passwords must match")
+        .required("Confirm password is required"),
+    })
+    .required();
 
   const {
     register,
@@ -49,46 +52,46 @@ export const Register = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  // const [passwordLength, setPasswordLength] = useState(0);
-  // const [passwordCriteria, setPasswordCriteria] = useState({
-  //   lowercase: false,
-  //   uppercase: false,
-  //   number: false,
-  //   length: false,
-  // });
+  const [passwordLength, setPasswordLength] = useState(0);
+  const [passwordCriteria, setPasswordCriteria] = useState({
+    lowercase: false,
+    uppercase: false,
+    number: false,
+    length: false,
+  });
 
-  // const handlePasswordChange = (value) => {
-  //   setPasswordLength(value.length);
-  //   setPasswordCriteria({
-  //     lowercase: /[a-z]/.test(value),
-  //     uppercase: /[A-Z]/.test(value),
-  //     number: /\d/.test(value),
-  //     length: value.length >= 8,
-  //   });
-  // };
+  const handlePasswordChange = (value) => {
+    setPasswordLength(value.length);
+    setPasswordCriteria({
+      lowercase: /[a-z]/.test(value),
+      uppercase: /[A-Z]/.test(value),
+      number: /\d/.test(value),
+      length: value.length >= 8,
+    });
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
-    // try {
-    //   const res = await axios.post(
-    //     "http://localhost:5555/api/v1/register",
-    //     data,
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   );
-    //   console.log(res.data);
-    //   if (res.data.success) {
-    //     toast.success("Successfully Registred");
-    //     return navigate("/");
-    //   } else {
-    //     // alert(res.data.message);
-    //     toast.error(`Registration Failed! ${res.data.message}`);
-    //     return navigate("/signup");
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const res = await axios.post(
+        "http://localhost:5555/api/v1/register",
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+      if (res.data.success) {
+        toast.success("Successfully Registred");
+        return navigate("/");
+      } else {
+        // alert(res.data.message);
+        toast.error(`Registration Failed! ${res.data.message}`);
+        return navigate("/signup");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -170,11 +173,11 @@ export const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     // required
                     {...register("password")}
-                    // onChange={(e) => {
-                    //   handlePasswordChange(e.target.value);
-                    // }}
+                    onChange={(e) => {
+                      handlePasswordChange(e.target.value);
+                    }}
                   />
-                  {/* {passwordLength > 0 ? (
+                  {passwordLength > 0 ? (
                      <div className="mt-1 rounded-lg">
                        <h3 className="text-md font-medium text-gray-800">
                          Password must contain the following:
@@ -227,7 +230,7 @@ export const Register = () => {
                       <p className="text-red-500">{errors.emptyPass.message}</p>
                     )}
                     </>
-                  )} */}
+                  )}
                 </div>
                 <div>
                   <label
@@ -259,6 +262,8 @@ export const Register = () => {
                       type="checkbox"
                       className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                       required
+                      disabled
+                      checked
                     />
                   </div>
                   <div className="ml-3 text-sm">
@@ -282,6 +287,19 @@ export const Register = () => {
                 >
                   Create an account
                 </button>
+
+                <div className="">
+                  <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                    or <span>Register with</span>
+                  </p>
+
+                  <Stack spacing={2} width={'100%'} marginTop={"10px"}>
+                  <GoogleLoginButton/>
+                  <GithubLogin/>
+                  </Stack>
+                  
+                  
+                </div>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-500">
                   Already have an account?
                   <Link

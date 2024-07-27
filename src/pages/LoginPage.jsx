@@ -1,10 +1,11 @@
-import React from 'react'
-import { Login } from '../components/user/auth/Login'
+import React from "react";
+import { Login } from "../components/user/auth/Login";
 
 export const LoginPage = () => {
   return (
     <>
-        <Login/>
+      <Login />
+      {/* <AuthOptionSelect/> */}
     </>
-  )
-}
+  );
+};

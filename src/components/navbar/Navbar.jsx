@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Searchbar } from "../searchbar/Searchbar.jsx";
 import { useSelector } from "react-redux";
-import GoogleLogoutButton from "../googleAuth/GoogleLogoutButton.jsx";
+import GoogleLogoutButton from "../logoutButton/LogoutButton.jsx";
 
 export const Navbar = () => {
   const { user, status } = useSelector((state) => state.auth);
@@ -43,13 +43,25 @@ export const Navbar = () => {
                 <Link to={item.to}>{item.name}</Link>
               </li>
             ))}
+            <>
+              {user !== null && user.role === "admin" ? (
+                <li>
+                  <Link to={"/admin/dashboard"}>Admin Dashboard</Link>
+                </li>
+              ) : null}
+            </>
+            <>
+              {user !== null && user.role === "seller" ? (
+                <li>
+                  <Link to={"/seller/dashboard"}>Seller Dashboard</Link>
+                </li>
+              ) : null}
+            </>
             {user !== null && user._id ? (
               <li>
-                <GoogleLogoutButton/>
+                <GoogleLogoutButton />
               </li>
-            ) : (
-              ""
-            )}
+            ) : null}
           </ul>
         </div>
 
