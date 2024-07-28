@@ -20,126 +20,121 @@ import { AllOrders } from "../pages/admin/AllOrders";
 import { SellerLayout } from "../layout/sellerLayout/SellerLayout";
 import { SellerDashboard } from "../pages/seller/SellerDashboard";
 import { AuthOptionSelectPage } from "../pages/AuthOptionSelectPage";
+import { AddProductPage } from "../pages/AddProductPage";
 // import { GustLayout } from "../layout/gustLayout/GustLayout";
 export const router = createBrowserRouter([
-    {
-      path: "/signin",
-      element: <AuthOptionSelectPage />,
-    },
-    {
-      path: "/signin/email",
-      element: <LoginPage />,
-    },
-    {
-      path: "/register",
-      element: <RegisterPage />,
-    },
+  {
+    path: "/signin",
+    element: <AuthOptionSelectPage />,
+  },
+  {
+    path: "/signin/email",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
 
-
-    // admin routes
-    {
-      element: <AdminLayout />,
-      children: [
-        {
-          path: "/admin/dashboard",
-          element: <AdminDashboard />,
-        },
-    //     {
-    //       path: "/products/add",
-    //       element: <AddProductPage />,
-    //     },
-        {
-          path: "/admin/products",
-          element: <AllProducts />,
-        },
-        {
-          path: "/admin/coupons",
-          element: <AllCoupon />,
-        },
-        {
-          path: "/admin/users",
-          element: <AllUsers />,
-        },
-    //     {
-    //       path: "/customers",
-    //       element: <CustomersPage />,
-    //     },
-        {
-          path: "/admin/orders",
-          element: <AllOrders />,
-        },
-    //     {
-    //       path: "/categories",
-    //       element: <CategoriesPage />,
-    //     },
-      ],
-    },
-    //user routes
-    {
-      element: <UserLayout />,
-      children: [
-        {
-          path: "/",
-          element: <HomePage />,
-        },
-        {
-          path: "/about",
-          element : <About/>
-        },
-        {
-          path: "/shop",
-          element: <AllProductPage />,
-        },
-        {
-          path: "/product/:id",
-          element: <ProductInfoPage/>,
-        },
-        {
-          path: "/user/cart",
-          element: <CartPage />,
-        },
-        {
-          path: "/user/checkout",
-          element: <CheckoutPage/>,
-        },
-        {
-          path: "/user/order-summary/:id",
-          element: <OrderSummary />,
-        },
-        {
-          path: "/user/my-orders",
-          element: <MyOrders />,
-        },
-        {
-          path: "/user/profile",
-          element: <ProfilePage/>,
-        },
-      ],
-    },
-    {
-      element: <SellerLayout />,
-      children: [
-        {
-          path: "/seller/dashboard",
-          element: <SellerDashboard />,
-        },
-        {
-          path: "/seller/products",
-          element: <AllProducts />,
-        },
-        {
-          path: "/seller/coupons",
-          element: <AllCoupon />,
-        },
-        {
-          path: "/seller/dashboard",
-          element: <AdminDashboard />,
-        },
-        {
-          path: "/seller/orders",
-          element: <AllOrders />,
-        },
-      ],
-    },
-  ]);
-  
+  // admin routes
+  {
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "/admin/dashboard",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "/products/add",
+        element: <AddProductPage />,
+      },
+      {
+        path: "/admin/products",
+        element: <AllProducts />,
+      },
+      {
+        path: "/admin/coupons",
+        element: <AllCoupon />,
+      },
+      {
+        path: "/admin/users",
+        element: <AllUsers />,
+      },
+      {
+        path: "/admin/orders",
+        element: <AllOrders />,
+      },
+    ],
+  },
+  //user routes
+  {
+    element: <UserLayout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/shop",
+        element: <AllProductPage />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductInfoPage />,
+      },
+      {
+        path: "/user/cart",
+        element: <CartPage />,
+      },
+      {
+        path: "/user/checkout",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "/user/order-summary/:id",
+        element: <OrderSummary />,
+      },
+      {
+        path: "/user/my-orders",
+        element: <MyOrders />,
+      },
+      {
+        path: "/user/profile",
+        element: <ProfilePage />,
+      },
+    ],
+  },
+  {
+    element: <SellerLayout />,
+    children: [
+      {
+        path: "/seller/dashboard",
+        element: <SellerDashboard />,
+      },
+      {
+        path: "/seller/products",
+        element: <AllProducts />,
+      },
+      {
+        path: "/seller/coupons",
+        element: <AllCoupon />,
+      },
+      {
+        path: "/seller/dashboard",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "/seller/orders",
+        element: <AllOrders />,
+      },
+      {
+        path: "/products/add",
+        element: <AddProductPage />,
+      },
+    ],
+  },
+]);
