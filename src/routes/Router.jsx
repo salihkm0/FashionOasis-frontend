@@ -21,6 +21,7 @@ import { SellerLayout } from "../layout/sellerLayout/SellerLayout";
 import { SellerDashboard } from "../pages/seller/SellerDashboard";
 import { AuthOptionSelectPage } from "../pages/AuthOptionSelectPage";
 import { AddProductPage } from "../pages/AddProductPage";
+import { UpdateProductPage } from "../pages/UpdateProductPage";
 // import { GustLayout } from "../layout/gustLayout/GustLayout";
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: "/products/add",
         element: <AddProductPage />,
+      },
+      {
+        path: "/products/update/:id",
+        element: <UpdateProductPage />,
       },
       {
         path: "/admin/products",
