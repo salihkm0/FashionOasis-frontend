@@ -15,13 +15,13 @@ export const FilterCategory = ({ handleCategoryChange }) => {
 
       <FilterInput 
       handleChange={handleCategoryChange}
-      value="tshirt"
+      value="tshirts"
       title="T Shirt"
       name="category"
       />
       <FilterInput 
       handleChange={handleCategoryChange}
-      value="shirt"
+      value="shirts"
       title="Shirt"
       name="category"
       />

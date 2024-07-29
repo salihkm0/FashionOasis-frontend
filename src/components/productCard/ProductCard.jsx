@@ -1,17 +1,26 @@
+import { Link } from "@mui/material";
 import React from "react";
+import "./ProductCard.css";
+import {
+  fetchCart,
+  addToCart,
+  removeFromCart,
+  updateCart,
+  clearCart,
+} from "../../redux/cartSlice";
+import { useDispatch } from "react-redux";
 
-export const ProductCard = ({
-  image,
-  title,
-  price,
-  color,
-  subCategory,
-  quantity,
-  category
-}) => {
+export const ProductCard = ({ image, name, price, offerPrice, id, brand }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (productId, quantity) => {
+    console.log(' productId :', productId,"quantity : ", quantity)
+    dispatch(addToCart({ productId, quantity }));
+  };
+
   return (
     <>
-      <div className=" mt-5border border-gray-300 rounded-md overflow-hidden shadow-md cursor-pointer">
+      {/* <div className=" mt-5border border-gray-300 rounded-md overflow-hidden shadow-md cursor-pointer">
         <img
           className="lg:h-80  h-96 w-full"
           src={image}
@@ -66,6 +75,26 @@ export const ProductCard = ({
                 Add To Cart
               </button>
             )}
+          </div>
+        </div>
+      </div> */}
+      <div className="product-card">
+        <div className="product-img">
+          <img src={image} alt="" />
+        </div>
+        <div className="p-5">
+          <div className="product-details">
+            <p className="product-barnd">{brand}</p>
+            <h1 className="product-title">{name}</h1>
+            <div className="product-price-details">
+              <div className="product-offerPrice">{offerPrice.toFixed(2)}</div>
+              <div className="product-price">{price.toFixed(2)}</div>
+            </div>
+          </div>
+          <div className="product-action">
+            {/* <div className="add-to-cart"> */}
+            <button onClick={() => handleAddToCart(id,1)}>Add to Cart</button>
+            {/* </div> */}
           </div>
         </div>
       </div>

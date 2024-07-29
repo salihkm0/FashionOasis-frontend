@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useDropzone } from "react-dropzone";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export const AddProductPage = () => {
   const { user } = useSelector((state) => state.auth);
@@ -28,7 +29,8 @@ export const AddProductPage = () => {
       taxRate: "",
       isTaxable: false,
       isFeatured: false,
-      seller: "",
+      seller: user._id,
+      color: "",
     },
   });
 
@@ -121,8 +123,8 @@ export const AddProductPage = () => {
                       <input
                         type="text"
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        {...register(user._id)}
-                        value={user.name ? user.name : user.firstName}
+                        {...register("seller")}
+                        value={user._id}
                         disabled
                       />
                     </div>
@@ -174,6 +176,18 @@ export const AddProductPage = () => {
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       {...register("price")}
+                    />
+                  </div>
+                </div>
+                <div className="w-full lg:w-6/12 px-4">
+                  <div className="relative w-full mb-3">
+                    <label className="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+                      color
+                    </label>
+                    <input
+                      type="text"
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      {...register("color")}
                     />
                   </div>
                 </div>
@@ -442,10 +456,17 @@ export const AddProductPage = () => {
                   <div className="relative w-full mb-3 ">
                     <button
                       type="submit"
-                      className="px-10 border-0 px-3 py-3 placeholder-blueGray-300 block uppercase text-xs font-bold text-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 mt-6 bg-green-500"
+                      className="px-10 border-0 px-3 py-3 placeholder-blueGray-300 block uppercase text-xs font-bold text-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150 mt-6 bg-green-500 h-[42px]"
                       disabled={loading}
                     >
-                      {loading ? "Adding..." : "Add Product"}
+                      {loading ? (
+                        <>
+                          <span>Adding...</span>
+                          <CircularProgress size={"30px"} color="success" />
+                        </>
+                      ) : (
+                        "Add Product"
+                      )}
                     </button>
                   </div>
                 </div>

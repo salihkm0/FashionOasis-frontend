@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { productData } from "../../Data/Data";
+import { useSelector } from "react-redux";
 
 export const Searchbar = () => {
   // Search State
+  const { products} = useSelector((state) => state.products);
   const [search, setSearch] = useState("");
 
+  // console.log(products)
+
   // Filter Search Data
-  const filterSearchData = productData
-    .filter((obj) => obj.title.toLowerCase().includes(search))
+  const filterSearchData = products
+    .filter((obj) => obj.name.toLowerCase().includes(search))
     .slice(0, 8);
   return (
     <div className="">
@@ -31,8 +34,8 @@ export const Searchbar = () => {
                   return (
                     <div key={index} className="py-2 px-2">
                       <div className="flex items-center gap-2">
-                        <img className="w-10" src={item.image} alt="" />
-                        {item.title}
+                        <img className="w-10" src={item.imageUrls[0]} alt="" />
+                        {item.name}
                       </div>
                     </div>
                   );

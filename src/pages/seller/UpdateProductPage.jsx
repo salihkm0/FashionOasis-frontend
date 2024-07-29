@@ -84,27 +84,103 @@ export const UpdateProductPage = () => {
     setExistingImages(existingImages.filter((_, i) => i !== index));
   };
 
-  const onSubmit = async (data) => {
-    setLoading(true);
-    const formData = new FormData();
 
+
+
+
+// const onSubmit = async (data) => {
+//     console.log("Form data:", data); // Debugging: log form data
+//     // setLoading(true);
+//     const formData = new FormData();
+  
+//     // Append other data
+//     for (const key in data) {
+//       if (key === "sizes" || key === "offer") {
+//         formData.append(key, JSON.stringify(data[key]));
+//       } else if (key === "isOffer" || key === "isTaxable" || key === "isFeatured") {
+//         formData.append(key, data[key] ? "true" : "false");
+//       } else {
+//         formData.append(key, data[key]);
+//       }
+//     }
+  
+//     // Append image files
+//     imageFiles.forEach((file) => {
+//       formData.append("images", file);
+//     });
+  
+//     // Append existing images
+//     formData.append("existingImages", JSON.stringify(existingImages));
+  
+//     // Debugging: log the content of formData
+//     for (let [key, value] of formData.entries()) {
+//       console.log(key, value);
+//     }
+  
+//     console.log('formData :',formData)
+
+//     // try {
+//     //   const response = await axios.put(
+//     //     `http://localhost:5555/api/v1/product/update/${productId}`,
+//     //     formData,
+//     //     {
+//     //       withCredentials: true,
+//     //       headers: {
+//     //         "Content-Type": "multipart/form-data",
+//     //       },
+//     //     }
+//     //   );
+  
+//     //   if (response.data.success) {
+//     //     toast.success("Product updated successfully");
+//     //     reset();
+//     //     setImageFiles([]);
+//     //     setLoading(false);
+//     //   }
+//     // } catch (error) {
+//     //   console.error("There was an error updating the product!", error);
+//     //   toast.error("There was an error updating the product!");
+//     //   setLoading(false);
+//     // }
+//   };
+
+
+const onSubmit = async (data) => {
+    console.log("Form data:", data); // Log form data to verify it's correctly captured
+    // setLoading(true);
+    const formData = new FormData();
+  
     // Append other data
     for (const key in data) {
       if (key === "sizes" || key === "offer") {
-        formData.append(key, JSON.stringify(data[key]));
+        const jsonData = JSON.stringify(data[key]);
+        formData.append(key, jsonData);
+        // console.log(`Appending ${key}:`, jsonData);
+      } else if (key === "isOffer" || key === "isTaxable" || key === "isFeatured") {
+        const booleanData = data[key] ? "true" : "false";
+        formData.append(key, booleanData);
+        // console.log(`Appending ${key}:`, booleanData);
       } else {
         formData.append(key, data[key]);
+        // console.log(`Appending ${key}:`, data[key]);
       }
     }
-
+  
     // Append image files
-    imageFiles.forEach((file) => {
+    imageFiles.forEach((file, index) => {
       formData.append("images", file);
+    //   console.log(`Appending image file ${index}:`, file);
     });
-
+  
     // Append existing images
-    formData.append("existingImages", JSON.stringify(existingImages));
-
+    const jsonExistingImages = JSON.stringify(existingImages);
+    formData.append("existingImages", jsonExistingImages);
+    // console.log("Appending existingImages:", jsonExistingImages);
+  
+    //Debugging: log the content of formData
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
     try {
       const response = await axios.put(
         `http://localhost:5555/api/v1/product/update/${productId}`,
@@ -116,7 +192,7 @@ export const UpdateProductPage = () => {
           },
         }
       );
-
+  
       if (response.data.success) {
         toast.success("Product updated successfully");
         reset();
@@ -129,6 +205,8 @@ export const UpdateProductPage = () => {
       setLoading(false);
     }
   };
+  
+  
 
   const isOffer = watch("isOffer");
   const isTaxable = watch("isTaxable");
@@ -335,7 +413,7 @@ export const UpdateProductPage = () => {
                           {...register("offer.type")}
                         >
                           <option value="percentage">Percentage</option>
-                          <option value="flat">Flat</option>
+                          <option value="amount">Amount</option>
                         </select>
                       </div>
                       <div className="w-6/12">

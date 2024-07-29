@@ -3,14 +3,18 @@ import Products from "../components/products/Products";
 import { FilterSidebar } from "../components/filterSidebar/FilterSidebar";
 import { productData } from "../Data/Data";
 import { ProductCard } from "../components/productCard/ProductCard";
+import { useSelector } from "react-redux";
 
 export const AllProductPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedSubSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [priceSort, setPriceSort] = useState(null);
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
 
+  const { products} = useSelector((state) => state.products);
+
+  console.log(products)
 
 
   // console.log('main cat:' ,selectedCategory , "sub: " ,selectedSubCategory , "color : ", selectedColor,"priceSort :" ,priceSort, "priceRange :" ,priceRange ) //for debug
@@ -53,8 +57,8 @@ export const AllProductPage = () => {
   };
 
 
-  function filteredData(productData, selectedSubCategory, selectedColor, priceSort, priceRange,selectedCategory) {
-    let filteredProducts = productData;
+  function filteredData(products, selectedSubSubCategory, selectedColor, priceSort, priceRange,selectedCategory) {
+    let filteredProducts = products;
 
     // Applying category filter
     if (selectedCategory) {
@@ -64,9 +68,9 @@ export const AllProductPage = () => {
     }
 
     // Applying sub category filter
-    if (selectedSubCategory) {
+    if (selectedSubSubCategory) {
       filteredProducts = filteredProducts.filter(
-        (product) => product.subCategory === selectedSubCategory
+        (product) => product.subSubCategory === selectedSubSubCategory
       );
     }
 
@@ -80,7 +84,7 @@ export const AllProductPage = () => {
     //Applying price range filter
     if (priceRange.min !== null && priceRange.max !== null) {
       filteredProducts = filteredProducts.filter(
-        (product) => product.price >= priceRange.min && product.price <= priceRange.max
+        (product) => product.offerPrice >= priceRange.min && product.offerPrice <= priceRange.max
       );
     }
 
@@ -88,28 +92,31 @@ export const AllProductPage = () => {
     if (priceSort) {
       filteredProducts = filteredProducts.sort((a, b) => {
         if (priceSort === "low-to-high") {
-          return a.price - b.price;
+          return a.offerPrice - b.offerPrice;
         } else if (priceSort === "high-to-low") {
-          return b.price - a.price;
+          return b.offerPrice - a.offerPrice;
         }
         return 0;
       });
     }
-    return filteredProducts.map(({ image, title, price ,color,subCategory,quantity,category}) => (
+    return filteredProducts.map(({ imageUrls, name, price ,color,subCategory,quantity,category,brand ,_id, offerPrice}) => (
       <ProductCard
         key={Math.random()}
-        image={image}
-        title={title}
+        image={imageUrls[0]}
+        name={name}
         price={price}
         color = {color}
         subCategory = {subCategory}
         quantity ={quantity}
         category ={category}
+        brand = {brand}
+        offerPrice ={offerPrice}
+        id ={_id}
       />
     ));
   }
 
-  const result = filteredData(productData, selectedSubCategory, selectedColor, priceSort, priceRange,selectedCategory);
+  const result = filteredData(products, selectedSubSubCategory, selectedColor, priceSort, priceRange,selectedCategory);
 
   return (
     <>

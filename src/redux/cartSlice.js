@@ -1,6 +1,7 @@
 // src/slices/cartSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { toast } from "react-hot-toast";
 
 // Async thunk to fetch the cart
 export const fetchCart = createAsyncThunk(
@@ -24,8 +25,10 @@ export const addToCart = createAsyncThunk(
         `http://localhost:5555/api/v1/add-cart/${productId}`,
         { quantity }
       );
+      toast.success(response.data.message)
       return response.data; // Returning the product data from the API response
     } catch (error) {
+      toast.error(response.data.message)
       return rejectWithValue(error.response.data); // Returning the error message
     }
   }
@@ -40,8 +43,10 @@ export const updateCart = createAsyncThunk(
         'http://localhost:5555/api/v1/update-cart',
         { id: productId, quantity }
       );
+      toast.success(response.data.message)
       return response.data; // Returning the success message
     } catch (error) {
+      toast.error(response.data.message)
       return rejectWithValue(error.response.data); // Returning the error message
     }
   }
@@ -53,8 +58,10 @@ export const removeFromCart = createAsyncThunk(
   async (productId, { rejectWithValue }) => {
     try {
       const response = await axios.delete(`http://localhost:5555/api/v1/delete-cart-product/${productId}`);
+      toast.success(response.data.message)
       return response.data; // Returning the success message
     } catch (error) {
+      toast.error(response.data.message)
       return rejectWithValue(error.response.data); // Returning the error message
     }
   }
@@ -66,8 +73,10 @@ export const clearCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.delete('http://localhost:5555/api/v1/delete-cart');
+      toast.success(response.data.message)
       return response.data; // Returning the success message
     } catch (error) {
+      toast.error(response.data.message)
       return rejectWithValue(error.response.data); // Returning the error message
     }
   }

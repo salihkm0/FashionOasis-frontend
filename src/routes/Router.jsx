@@ -15,13 +15,13 @@ import { MyOrders } from "../pages/MyOrders";
 import { ProfilePage } from "../pages/ProfilePage";
 import { AllProducts } from "../pages/admin/AllProducts";
 import { AllUsers } from "../pages/admin/AllUsers";
-import { AllCoupon } from "../pages/admin/AllCoupon";
 import { AllOrders } from "../pages/admin/AllOrders";
 import { SellerLayout } from "../layout/sellerLayout/SellerLayout";
 import { SellerDashboard } from "../pages/seller/SellerDashboard";
 import { AuthOptionSelectPage } from "../pages/AuthOptionSelectPage";
-import { AddProductPage } from "../pages/AddProductPage";
-import { UpdateProductPage } from "../pages/UpdateProductPage";
+import { AddProductPage } from "../pages/seller/AddProductPage";
+import { UpdateProductPage } from "../pages/seller/UpdateProductPage";
+import { CouponList } from "../pages/admin/AllCoupons";
 // import { GustLayout } from "../layout/gustLayout/GustLayout";
 export const router = createBrowserRouter([
   {
@@ -59,7 +59,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/admin/coupons",
-        element: <AllCoupon />,
+        element: <CouponList />,
       },
       {
         path: "/admin/users",
@@ -126,7 +126,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/seller/coupons",
-        element: <AllCoupon />,
+        element: <CouponList />,
       },
       {
         path: "/seller/dashboard",
