@@ -8,7 +8,11 @@ export const fetchCart = createAsyncThunk(
   'cart/fetchCart',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('http://localhost:5555/api/v1/cart');
+      const response = await axios.get('http://localhost:5555/api/v1/cart',
+        {
+          withCredentials : true
+        }
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -19,11 +23,14 @@ export const fetchCart = createAsyncThunk(
 // Async thunk to add a product to the cart
 export const addToCart = createAsyncThunk(
   'cart/addToCart',
-  async ({ productId, quantity }, { rejectWithValue }) => {
+  async ({ productId, quantity ,size}, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `http://localhost:5555/api/v1/add-cart/${productId}`,
-        { quantity }
+        { quantity ,size},
+        {
+          withCredentials : true
+        }
       );
       toast.success(response.data.message)
       return response.data; // Returning the product data from the API response
@@ -39,9 +46,12 @@ export const updateCart = createAsyncThunk(
   'cart/updateCart',
   async ({ productId, quantity }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(
+      const response = await axios.put(
         'http://localhost:5555/api/v1/update-cart',
-        { id: productId, quantity }
+        { id: productId, quantity },
+        {
+          withCredentials : true
+        }
       );
       toast.success(response.data.message)
       return response.data; // Returning the success message
@@ -57,7 +67,11 @@ export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async (productId, { rejectWithValue }) => {
     try {
-      const response = await axios.delete(`http://localhost:5555/api/v1/delete-cart-product/${productId}`);
+      const response = await axios.delete(`http://localhost:5555/api/v1/delete-cart-product/${productId}`,
+        {
+          withCredentials : true
+        }
+      );
       toast.success(response.data.message)
       return response.data; // Returning the success message
     } catch (error) {
@@ -72,7 +86,11 @@ export const clearCart = createAsyncThunk(
   'cart/clearCart',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.delete('http://localhost:5555/api/v1/delete-cart');
+      const response = await axios.delete('http://localhost:5555/api/v1/delete-cart',
+        {
+          withCredentials : true
+        }
+      );
       toast.success(response.data.message)
       return response.data; // Returning the success message
     } catch (error) {
@@ -145,7 +163,7 @@ const cartSlice = createSlice({
         const { id, quantity } = action.payload;
 
         const existingItem = state.items.find(
-          (item) => item.product.toString() === id.toString()
+          (item) => item.product === id
         );
 
         if (existingItem) {

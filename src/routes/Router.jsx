@@ -20,8 +20,9 @@ import { SellerLayout } from "../layout/sellerLayout/SellerLayout";
 import { SellerDashboard } from "../pages/seller/SellerDashboard";
 import { AuthOptionSelectPage } from "../pages/AuthOptionSelectPage";
 import { AddProductPage } from "../pages/seller/AddProductPage";
-import { UpdateProductPage } from "../pages/seller/UpdateProductPage";
+// import { UpdateProductPage } from "../pages/seller/UpdateProductPage";
 import { CouponList } from "../pages/admin/AllCoupons";
+import { ProductInfoPage_2 } from "../pages/ProductInfoPage_2";
 // import { GustLayout } from "../layout/gustLayout/GustLayout";
 export const router = createBrowserRouter([
   {
@@ -49,10 +50,10 @@ export const router = createBrowserRouter([
         path: "/products/add",
         element: <AddProductPage />,
       },
-      {
-        path: "/products/update/:id",
-        element: <UpdateProductPage />,
-      },
+      // {
+      //   path: "/products/update/:id",
+      //   element: <UpdateProductPage />,
+      // },
       {
         path: "/admin/products",
         element: <AllProducts />,
@@ -88,8 +89,12 @@ export const router = createBrowserRouter([
         element: <AllProductPage />,
       },
       {
-        path: "/product/:id",
+        path: "/product/2/:id",
         element: <ProductInfoPage />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductInfoPage_2 />,
       },
       {
         path: "/user/cart",

@@ -4,14 +4,17 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PersonIcon from "@mui/icons-material/Person";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import { useSelector } from "react-redux";
+
 export const AdminDashboard = () => {
+  const { products } = useSelector((state) => state.products);
   return (
     <div className="mx-[5%] mt-[40px]">
       <div className="w-full flex items-center	gap-2 justify-between">
         <StatusCard
           Icon={Inventory2Icon}
           title={"Total Products"}
-          count={120}
+          count={products.length}
         />
         <StatusCard Icon={ShoppingCartIcon} title={"Total Orders"} count={12} />
         <StatusCard

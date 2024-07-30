@@ -1,4 +1,3 @@
-import { Link } from "@mui/material";
 import React from "react";
 import "./ProductCard.css";
 import {
@@ -9,12 +8,13 @@ import {
   clearCart,
 } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export const ProductCard = ({ image, name, price, offerPrice, id, brand }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (productId, quantity) => {
-    console.log(' productId :', productId,"quantity : ", quantity)
+    console.log(" productId :", productId, "quantity : ", quantity);
     dispatch(addToCart({ productId, quantity }));
   };
 
@@ -93,7 +93,9 @@ export const ProductCard = ({ image, name, price, offerPrice, id, brand }) => {
           </div>
           <div className="product-action">
             {/* <div className="add-to-cart"> */}
-            <button onClick={() => handleAddToCart(id,1)}>Add to Cart</button>
+            {/* <button onClick={() => handleAddToCart(id,1)}>Add to Cart</button> */}
+            <Link to={`/product/${id}`}>View</Link>
+
             {/* </div> */}
           </div>
         </div>
