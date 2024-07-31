@@ -1,8 +1,33 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const CheckoutPage = () => {
+  const navigate = useNavigate();
+  const [cartProducts, setCartProducts] = useState();
+  const [lodding, setLodding] = useState(false);
+
+  const { products } = useSelector((state) => state.products);
+  const { items } = useSelector((state) => state.cart);
+
+  const handleCartProducts = () => {
+    setCartProducts(items);
+  };
+
+  useEffect(() => {
+    handleCartProducts();
+  }, [cartProducts]);
+
+  let totalQuantity = 0;
+  let totalPrice = 0;
+  let totalOgPrice = 0;
+  let totalDiscount = totalOgPrice - totalPrice;
+  let checkoutPrice = 0;
+  let totalTax = 0;
+
   const [delivery, setDelivery] = useState({
-    type: "",
+    type: "free",
     charge: 0,
   });
 
@@ -14,7 +39,95 @@ export const CheckoutPage = () => {
     });
   };
 
-  const [paymentMethod, setPaymentMethod] = useState("razorpay");
+  // const [paymentMethod, setPaymentMethod] = useState("razorpay");
+
+  const paymentHandler = async (e) => {
+    setLodding(true);
+    try {
+      const response = await axios.post(
+        "http://localhost:5555/api/v1/payment",
+        { amount: Math.floor(checkoutPrice) },
+        {
+          withCredentials: true,
+        }
+      );
+
+      const order = response.data.data;
+
+      const key = import.meta.env.VITE_SOME_KEY;
+      console.log("Razorpay Key:", key); // Log the key to check if it's defined
+
+      const options = {
+        key,
+        amount: order.amount,
+        currency: order.currency,
+        name: "Test",
+        description: "Test Payment",
+        order_id: order.id,
+        handler: async (response) => {
+          try {
+            const body = {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              totalPrice: totalPrice,
+              totalQuantity: totalQuantity,
+              totalDiscount: totalDiscount,
+              totalTax: totalTax,
+              shippingAddress: "66a36fc31b88fc74ed029534",
+              paymentMethod: "razorpay",
+              shippingMethod: delivery.type,
+            };
+            const validateResponse = await axios.post(
+              "http://localhost:5555/api/v1/payment/verify",
+              body,
+              {
+                withCredentials: true,
+              }
+            );
+            // const checkoutResponse = await axios.post(
+            //   "http://localhost:5555/api/v1/checkout",
+            //   body,
+            //   {
+            //     withCredentials: true,
+            //   }
+            // );
+            console.log("Payment verified. Response:", validateResponse);
+            navigate("/user/my-orders");
+            // console.log("Checkout Response:", checkoutResponse);
+            setLodding(false);
+          } catch (error) {
+            console.error("Payment verification failed. Error:", error);
+            setLodding(false);
+          }
+        },
+        prefill: {
+          name: "Salih",
+          email: "salih@gmail.com",
+        },
+        notes: {
+          address: "some address",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      setLodding(false);
+      rzp1.on("payment.failed", (response) => {
+        alert(response.error.code);
+        setLodding(false);
+      });
+
+      rzp1.open();
+    } catch (error) {
+      console.error("Payment handler failed. Error:", error);
+      setLodding(false);
+    }
+    setLodding(false);
+    e.preventDefault();
+  };
 
   console.log(delivery.type, delivery.charge);
   return (
@@ -26,71 +139,41 @@ export const CheckoutPage = () => {
             <p className="text-gray-400">
               Check your items. And select a suitable shipping method.
             </p>
-            <div className="mt-8 mb-5 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-              <div className="flex flex-col rounded-lg bg-white sm:flex-row">
-                <img
-                  className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                  src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                  alt
-                />
-                <div className="flex w-full flex-col px-4 py-4">
-                  <span className="font-semibold">
-                    Nike Air Max Pro 8888 - Super Light
-                  </span>
-                  <span className="float-right text-gray-400">
-                    42EU - 8.5US
-                  </span>
-                  <p className="text-lg font-bold">$138.99</p>
-                </div>
-              </div>
-              <div className="flex flex-col rounded-lg bg-white sm:flex-row">
-                <img
-                  className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                  src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                  alt
-                />
-                <div className="flex w-full flex-col px-4 py-4">
-                  <span className="font-semibold">
-                    Nike Air Max Pro 8888 - Super Light
-                  </span>
-                  <span className="float-right text-gray-400">
-                    42EU - 8.5US
-                  </span>
-                  <p className="mt-auto text-lg font-bold">$238.99</p>
-                </div>
-              </div>
-              <div className="flex flex-col rounded-lg bg-white sm:flex-row">
-                <img
-                  className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                  src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                  alt
-                />
-                <div className="flex w-full flex-col px-4 py-4">
-                  <span className="font-semibold">
-                    Nike Air Max Pro 8888 - Super Light
-                  </span>
-                  <span className="float-right text-gray-400">
-                    42EU - 8.5US
-                  </span>
-                  <p className="mt-auto text-lg font-bold">$238.99</p>
-                </div>
-              </div>
-              <div className="flex flex-col rounded-lg bg-white sm:flex-row">
-                <img
-                  className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                  src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                  alt
-                />
-                <div className="flex w-full flex-col px-4 py-4">
-                  <span className="font-semibold">
-                    Nike Air Max Pro 8888 - Super Light
-                  </span>
-                  <span className="float-right text-gray-400">
-                    42EU - 8.5US
-                  </span>
-                  <p className="mt-auto text-lg font-bold">$238.99</p>
-                </div>
-              </div>
+            <div className="mt-8 mb-5 space-y-3 rounded-lg shadow-lg border bg-white px-2 py-4 sm:px-6">
+              {items.map((item) => {
+                let product = products.find(
+                  (product) => product._id === item.product
+                ); // Find the corresponding product
+                if (!product) {
+                  return null;
+                }
+                totalQuantity = totalQuantity + item.quantity;
+                totalPrice = totalPrice + product.offerPrice * item.quantity;
+                totalOgPrice = totalOgPrice + product.price * item.quantity;
+                return (
+                  <div
+                    key={Math.random()}
+                    className="flex flex-col rounded-lg bg-white sm:flex-row border shadow-xl"
+                  >
+                    <img
+                      className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+                      src={product.imageUrls[0]}
+                      alt
+                    />
+                    <div className="flex w-full flex-col px-4 py-4">
+                      <span className="font-semibold">
+                        {product.name} x {item.quantity}
+                      </span>
+                      <span className="float-right text-gray-400 uppercase">
+                        {product.color} - {item.size}
+                      </span>
+                      <p className="text-lg font-bold">
+                        {(product.offerPrice * item.quantity).toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
             <div className="mb-6 pb-6 border-b border-gray-200">
               <div className="-mx-2 flex items-end justify-end">
@@ -138,7 +221,7 @@ export const CheckoutPage = () => {
             </div>
             <p className="text-xl font-medium">Shipping Methods</p>
             <form className="mt-5 grid gap-6">
-              <div className="relative">
+              <div className="relativ">
                 <input
                   className="peer hidden"
                   id="radio_1"
@@ -150,7 +233,7 @@ export const CheckoutPage = () => {
                 />
                 <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
                 <label
-                  className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                  className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4 shadow-xl"
                   htmlFor="radio_1"
                 >
                   <img
@@ -166,7 +249,7 @@ export const CheckoutPage = () => {
                   </div>
                 </label>
               </div>
-              <div className="relative">
+              <div className="relative ">
                 <input
                   className="peer hidden"
                   id="radio_2"
@@ -175,9 +258,9 @@ export const CheckoutPage = () => {
                   value={"fast"}
                   onChange={handleDeliveryCharge}
                 />
-                <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
+                <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white " />
                 <label
-                  className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                  className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4 shadow-xl"
                   htmlFor="radio_2"
                 >
                   <img
@@ -195,9 +278,62 @@ export const CheckoutPage = () => {
               </div>
             </form>
 
-            {/* payment Methods */}
+            <div className>
+              <div className="mt-6 border-t border-b py-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-gray-900">Subtotal</p>
+                  <p className="font-semibold text-gray-900">
+                    {totalPrice.toFixed(2)}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-gray-900">Shipping</p>
+                  <p className="font-semibold text-gray-900">
+                    {delivery.charge}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-gray-900">
+                    Discount Coupon
+                  </p>
+                  <p className="font-semibold text-gray-900">0</p>
+                </div>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm font-medium text-gray-900">
+                    Total Discount
+                  </p>
+                  <p className="font-semibold text-green-600">
+                    {totalDiscount.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+              <div className="mt-6 flex items-center justify-between">
+                <p className="text-sm font-medium text-gray-900">Total</p>
+                <p className="text-2xl font-semibold text-gray-900">
+                  {(checkoutPrice = totalPrice + delivery.charge).toFixed(2)}
+                </p>
+              </div>
+            </div>
 
-            {/* <p className=" my-5 text-xl font-medium">Payment Methods</p>
+            <button
+              className="mt-4 mb-8 w-full rounded-md bg-green-500 hover:bg-green-700 px-6 py-3 font-medium text-white"
+              onClick={paymentHandler}
+            >
+              {lodding ? "Placing Order..." : "Place Order"}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+{
+  /* payment Methods */
+}
+
+{
+  /* <p className=" my-5 text-xl font-medium">Payment Methods</p>
             <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
           <div className="w-full p-3">
             <label
@@ -238,39 +374,11 @@ export const CheckoutPage = () => {
               />
             </label>
           </div>
-        </div> */}
+        </div> */
+}
 
-            <div className>
-              <div className="mt-6 border-t border-b py-2">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                  <p className="font-semibold text-gray-900">$399.00</p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-900">Shipping</p>
-                  <p className="font-semibold text-gray-900">
-                    ${delivery.charge}
-                  </p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-900">
-                    Discount Coupon
-                  </p>
-                  <p className="font-semibold text-gray-900">$25</p>
-                </div>
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-900">
-                    Total Discount
-                  </p>
-                  <p className="font-semibold text-gray-900">$49</p>
-                </div>
-              </div>
-              <div className="mt-6 flex items-center justify-between">
-                <p className="text-sm font-medium text-gray-900">Total</p>
-                <p className="text-2xl font-semibold text-gray-900">$408.00</p>
-              </div>
-            </div>
-            {/* <p className="text-xl font-medium">Payment Methods</p>
+{
+  /* <p className="text-xl font-medium">Payment Methods</p>
             <form className="mt-5 grid gap-6">
               <div className="relative">
                 <input
@@ -316,14 +424,5 @@ export const CheckoutPage = () => {
                   </div>
                 </label>
               </div>
-            </form> */}
-            <button className="mt-4 mb-8 w-full rounded-md bg-green-500 hover:bg-green-700 px-6 py-3 font-medium text-white">
-              Place Order
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
+            </form> */
+}

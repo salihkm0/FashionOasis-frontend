@@ -44,6 +44,13 @@ export const Navbar = () => {
               </li>
             ))}
             <>
+              {user !== null ? (
+                <li>
+                  <Link to={"/user/my-orders"}>My Orders</Link>
+                </li>
+              ) : null}
+            </>
+            <>
               {user !== null && user.role === "admin" ? (
                 <li>
                   <Link to={"/admin/dashboard"}>Admin Dashboard</Link>
