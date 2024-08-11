@@ -10,7 +10,7 @@
 //     const fetchReviews = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://localhost:5555/api/v1/reviews/${productId}`
+//           `https://fashionoasis-backend.onrender.com/api/v1/reviews/${productId}`
 //         );
 //         setReviews(response.data.reviews);
 //       } catch (error) {
@@ -75,7 +75,7 @@
 //     const fetchReviews = async () => {
 //       try {
 //         const response = await axios.get(
-//           `http://localhost:5555/api/v1/reviews/${productId}`
+//           `https://fashionoasis-backend.onrender.com/api/v1/reviews/${productId}`
 //         );
 //         // Sort reviews by createdAt in descending order
 //         const sortedReviews = response.data.reviews.sort(
@@ -148,7 +148,7 @@ const ReviewSection = ({ productId, refreshReviews }) => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5555/api/v1/reviews/${productId}`
+          `https://fashionoasis-backend.onrender.com/api/v1/reviews/${productId}`
         );
         const reviewsData = response.data.reviews;
 

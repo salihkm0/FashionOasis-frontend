@@ -3,7 +3,7 @@ import React from "react";
 
 const GoogleLoginButton = () => {
   const handleLogin = () => {
-    window.location.href = "http://localhost:5555/api/v1/auth/google";
+    window.location.href = "https://fashionoasis-backend.onrender.com/api/v1/auth/google";
   };
 
   return (

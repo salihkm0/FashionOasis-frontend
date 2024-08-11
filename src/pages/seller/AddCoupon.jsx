@@ -39,7 +39,7 @@ export const AddCoupon = ({ editMode, couponId }) => {
     if (editMode && couponId) {
       setLoading(true);
       axios
-        .get(`http://localhost:5555/api/v1/coupon/${couponId}`)
+        .get(`https://fashionoasis-backend.onrender.com/api/v1/coupon/${couponId}`)
         .then((res) => {
           const { code, discountType, discountValue, expirationDate, usageLimit } = res.data.coupon;
           console.log(res.data.coupon);
@@ -63,11 +63,11 @@ export const AddCoupon = ({ editMode, couponId }) => {
     try {
       let res;
       if (editMode && couponId) {
-        res = await axios.put(`http://localhost:5555/api/v1/coupon/update/${couponId}`, data, {
+        res = await axios.put(`https://fashionoasis-backend.onrender.com/api/v1/coupon/update/${couponId}`, data, {
           withCredentials: true,
         });
       } else {
-        res = await axios.post("http://localhost:5555/api/v1/coupon/add", data, {
+        res = await axios.post("https://fashionoasis-backend.onrender.com/api/v1/coupon/add", data, {
           withCredentials: true,
         });
       }

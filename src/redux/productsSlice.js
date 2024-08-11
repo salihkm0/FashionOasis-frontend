@@ -8,7 +8,7 @@ import axios from 'axios';
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
-    const response = await axios.get('http://localhost:5555/api/v1/product/all'); // Adjust the API endpoint as needed
+    const response = await axios.get('https://fashionoasis-backend.onrender.com/api/v1/product/all'); // Adjust the API endpoint as needed
     return response.data.products;
   }
 );

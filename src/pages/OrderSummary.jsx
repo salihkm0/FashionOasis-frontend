@@ -15,7 +15,7 @@
 //     setLodding(true);
 //     try {
 //       const response = await axios.get(
-//         `http://localhost:5555/api/v1/order-summary/${id}`,
+//         `https://fashionoasis-backend.onrender.com/api/v1/order-summary/${id}`,
 //         {
 //           withCredentials: true,
 //         }
@@ -46,7 +46,7 @@
 //   console.log(orderDetails);
 //   console.log(orderProducts)
 
-//   // http://localhost:5555/api/v1/order-summary/66a9e37d8fedca6519bd82fa
+//   // https://fashionoasis-backend.onrender.com/api/v1/order-summary/66a9e37d8fedca6519bd82fa
 //   return (
 //     <>
 //       {lodding ? (
@@ -202,7 +202,7 @@ export const OrderSummary = () => {
     setLodding(true);
     try {
       const response = await axios.get(
-        `http://localhost:5555/api/v1/order-summary/${id}`,
+        `https://fashionoasis-backend.onrender.com/api/v1/order-summary/${id}`,
         {
           withCredentials: true,
         }

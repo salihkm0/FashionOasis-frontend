@@ -74,7 +74,7 @@ export const Register = () => {
     console.log(data);
     try {
       const res = await axios.post(
-        "http://localhost:5555/api/v1/register",
+        "https://fashionoasis-backend.onrender.com/api/v1/register",
         data,
         {
           withCredentials: true,

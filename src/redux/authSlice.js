@@ -63,7 +63,7 @@ export const fetchUserProfile = createAsyncThunk('auth/fetchUserProfile', async 
 //   const token = getToken();
 //   if (!token) throw new Error('No token found');
 
-  const response = await axios.get('http://localhost:5555/api/v1/profile', {
+  const response = await axios.get('https://fashionoasis-backend.onrender.com/api/v1/profile', {
     withCredentials : true
     // headers: {
     //   Authorization: `Bearer ${token}`,

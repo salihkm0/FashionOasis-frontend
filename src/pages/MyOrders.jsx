@@ -13,7 +13,7 @@ export const MyOrders = () => {
     setLodding(true);
     try {
       const response = await axios.get(
-        "http://localhost:5555/api/v1/my-orders",
+        "https://fashionoasis-backend.onrender.com/api/v1/my-orders",
         {
           withCredentials: true,
         }

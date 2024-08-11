@@ -9,7 +9,7 @@ const GoogleLogoutButton = () => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    await axios.post('http://localhost:5555/api/v1/logout',{
+    await axios.post('https://fashionoasis-backend.onrender.com/api/v1/logout',{
       withCredentials: true
     });
     dispatch(clearUser());

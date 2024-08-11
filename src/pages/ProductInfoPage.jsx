@@ -25,7 +25,7 @@ export const ProductInfoPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post(`http://localhost:5555/api/v1//my-reviews/add/${id}`, data);
+      await axios.post(`https://fashionoasis-backend.onrender.com/api/v1//my-reviews/add/${id}`, data);
     } catch (error) {
     }
   };
@@ -51,7 +51,7 @@ export const ProductInfoPage = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:5555/api/v1/product/${id}`
+          `https://fashionoasis-backend.onrender.com/api/v1/product/${id}`
         );
         console.log(res.data);
         if (!res) {

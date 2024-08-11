@@ -35,7 +35,7 @@
 //     setLodding(true);
 //     try {
 //       const response = await axios.post(
-//         "http://localhost:5555/api/v1/payment",
+//         "https://fashionoasis-backend.onrender.com/api/v1/payment",
 //         { amount: Math.floor(checkoutPrice) },
 //         {
 //           withCredentials: true,
@@ -70,7 +70,7 @@
 //               userFrontend: user,
 //             };
 //             const validateResponse = await axios.post(
-//               "http://localhost:5555/api/v1/payment/verify",
+//               "https://fashionoasis-backend.onrender.com/api/v1/payment/verify",
 //               body,
 //               {
 //                 withCredentials: true,
@@ -359,7 +359,7 @@ export const CheckoutPage = () => {
   const handleApplyCoupon = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5555/api/v1/apply-coupon",
+        "https://fashionoasis-backend.onrender.com/api/v1/apply-coupon",
         {
           code: couponCode,
           cartTotal: checkoutPrice,
@@ -382,7 +382,7 @@ export const CheckoutPage = () => {
   const handleClearCoupon = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5555/api/v1/clear-coupon",{
+        "https://fashionoasis-backend.onrender.com/api/v1/clear-coupon",{
           code: couponCode,
         },
         {
@@ -400,7 +400,7 @@ export const CheckoutPage = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:5555/api/v1/payment",
+        "https://fashionoasis-backend.onrender.com/api/v1/payment",
         { amount: Math.floor(checkoutPrice) },
         {
           withCredentials: true,
@@ -436,7 +436,7 @@ export const CheckoutPage = () => {
               code : couponCode
             };
             const validateResponse = await axios.post(
-              "http://localhost:5555/api/v1/payment/verify",
+              "https://fashionoasis-backend.onrender.com/api/v1/payment/verify",
               body,
               {
                 withCredentials: true,

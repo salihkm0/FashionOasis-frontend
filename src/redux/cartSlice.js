@@ -7,7 +7,7 @@ export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get("http://localhost:5555/api/v1/cart", {
+      const response = await axios.get("https://fashionoasis-backend.onrender.com/api/v1/cart", {
         withCredentials: true,
       });
       return response.data;
@@ -23,7 +23,7 @@ export const addToCart = createAsyncThunk(
   async ({ productId, quantity, size }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        `http://localhost:5555/api/v1/add-cart/${productId}`,
+        `https://fashionoasis-backend.onrender.com/api/v1/add-cart/${productId}`,
         { quantity, size },
         {
           withCredentials: true,
@@ -44,7 +44,7 @@ export const updateCart = createAsyncThunk(
   async ({ productId, quantity, size }, { rejectWithValue }) => {
     try {
       const response = await axios.put(
-        "http://localhost:5555/api/v1/update-cart",
+        "https://fashionoasis-backend.onrender.com/api/v1/update-cart",
         { id: productId, quantity, size },
         {
           withCredentials: true,
@@ -64,7 +64,7 @@ export const updateCart = createAsyncThunk(
 //   'cart/removeFromCart',
 //   async (productId,size, { rejectWithValue }) => {
 //     try {
-//       const response = await axios.delete(`http://localhost:5555/api/v1/delete-cart-product/${productId}`,{size},
+//       const response = await axios.delete(`https://fashionoasis-backend.onrender.com/api/v1/delete-cart-product/${productId}`,{size},
 //         {
 //           withCredentials : true
 //         }
@@ -84,7 +84,7 @@ export const removeFromCart = createAsyncThunk(
   async ({ productId, size }, { rejectWithValue }) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5555/api/v1/delete-cart-product/${productId}`,
+        `https://fashionoasis-backend.onrender.com/api/v1/delete-cart-product/${productId}`,
         {
           data: { size }, // Include size in the request body
           withCredentials: true,
@@ -109,7 +109,7 @@ export const clearCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.delete(
-        "http://localhost:5555/api/v1/delete-cart",
+        "https://fashionoasis-backend.onrender.com/api/v1/delete-cart",
         {
           withCredentials: true,
         }

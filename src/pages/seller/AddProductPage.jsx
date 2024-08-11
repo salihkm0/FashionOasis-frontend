@@ -73,7 +73,7 @@ export const AddProductPage = () => {
     console.log("formData :", formData);
     try {
       const response = await axios.post(
-        "http://localhost:5555/api/v1/product/add",
+        "https://fashionoasis-backend.onrender.com/api/v1/product/add",
         formData,
         {
           withCredentials: true,
