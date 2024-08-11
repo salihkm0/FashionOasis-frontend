@@ -109,7 +109,7 @@ export const Register = () => {
           >
             FashionOasis
           </Link>
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+          <div className="w-full bg-white rounded-lg shadow-2xl dark:border md:mt-0 sm:max-w-md xl:p-0">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl darktext-gray-900">
                 Create an account
@@ -129,7 +129,7 @@ export const Register = () => {
                     type="text"
                     name="name"
                     id="name"
-                    className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className=" border shadow-xl border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Jhone"
                     // required
                     {...register("name")}
@@ -149,7 +149,7 @@ export const Register = () => {
                     type="email"
                     name="email"
                     id="email"
-                    className=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className=" border shadow-xl border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                     // required
                     {...register("email")}
@@ -170,7 +170,7 @@ export const Register = () => {
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 shadow-xl border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     // required
                     {...register("password")}
                     onChange={(e) => {
@@ -244,7 +244,7 @@ export const Register = () => {
                     name="confirm-password"
                     id="confirm-password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 shadow-xl border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     // required
                     {...register("confirmPassword")}
                   />
@@ -283,7 +283,7 @@ export const Register = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-indigo-500 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-500 dark:hover:bg-indigo-700 dark:focus:ring-primary-800"
+                  className="w-full shadow-xl text-white bg-indigo-500 hover:bg-indigo-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-indigo-500 dark:hover:bg-indigo-700 dark:focus:ring-primary-800"
                 >
                   Create an account
                 </button>
@@ -312,6 +312,7 @@ export const Register = () => {
               </form>
             </div>
           </div>
+          <span className="mt-[100px] opacity-0">fgfg</span>
         </div>
       </section>
     </>

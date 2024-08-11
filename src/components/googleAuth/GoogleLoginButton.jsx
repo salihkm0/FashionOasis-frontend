@@ -7,7 +7,7 @@ const GoogleLoginButton = () => {
   };
 
   return (
-    <button onClick={handleLogin} className="w-full p-2 border flex justify-center items-center gap-2">
+    <button onClick={handleLogin} className="w-full p-2 border rounded-md flex justify-center items-center gap-2 shadow-xl">
       <img
         className="w-[30px]"
         src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"

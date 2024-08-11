@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   fetchCart,
   addToCart,
@@ -7,16 +7,32 @@ import {
   updateCart,
   clearCart,
 } from "../../redux/cartSlice";
+import { useEffect, useState } from "react";
 // productData
 
 export const HomePageProductCard = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.products);
   const navigate = useNavigate();
+  const [bestSellers, setBestSellers] = useState([]);
 
-  const handleAddToCart = (productId, quantity) => {
-    dispatch(addToCart({ productId, quantity }));
-  };
+  useEffect(() => {
+    const filterBestSellers = () => {
+      // Filter and sort the products based on sales or any other criteria
+      const sortedProducts = products
+        .filter(product => product.sold > 0) // Filter out products with sales
+        .sort((a, b) => b.sold - a.sold) // Sort by sales in descending order
+        .slice(0, 8); // Get top 8 best-selling products
+      setBestSellers(sortedProducts);
+    };
+
+    filterBestSellers();
+  }, [products]);
+
+
+  // const handleAddToCart = (productId, quantity) => {
+  //   dispatch(addToCart({ productId, quantity }));
+  // };
   return (
     <div className="mt-10">
       {/* Heading  */}
@@ -30,7 +46,7 @@ export const HomePageProductCard = () => {
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-5 mx-auto">
           <div className="flex flex-wrap mx-4">
-            {products.slice(0, 8).map((item, index) => {
+            {bestSellers.map((item, index) => {
               const { imageUrls, name, offerPrice, brand ,_id} = item;
               return (
                 <div key={index} className="p-4 w-full sm:w-2/4 lg:w-1/4">
@@ -62,9 +78,12 @@ export const HomePageProductCard = () => {
                       </h1>
 
                       <div className="flex justify-center ">
-                        <button onClick={()=> handleAddToCart(_id,1)} className=" bg-green-500 hover:bg-green-500 w-full text-white py-[4px] rounded-lg font-bold">
+                        {/* <button onClick={()=> handleAddToCart(_id,1)} className=" bg-green-500 hover:bg-green-500 w-full text-white py-[4px] rounded-lg font-bold">
                           Add To Cart
-                        </button>
+                        </button> */}
+                        <Link className=" bg-green-500 hover:bg-green-500 w-full text-white py-[4px] rounded-lg font-bold">
+                         View
+                        </Link>
                       </div>
                     </div>
                   </div>

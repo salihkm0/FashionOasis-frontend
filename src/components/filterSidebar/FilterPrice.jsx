@@ -80,8 +80,6 @@ export const FilterPrice = ({ handlePriceRangeChange }) => {
         <div className="filter-checkmark" />
         $400+
       </label>
-
-      
     </>
   );
 };

@@ -240,8 +240,8 @@ export const OrderSummary = () => {
               Thanks for making a purchase you can check our order summary from
               below
             </p>
-            <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl max-lg:mx-auto lg:max-w-full">
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between px-6 pb-6 border-b border-gray-200">
+            <div className="main-box border border-gray-200 rounded-xl pt-6 max-w-xl max-lg:mx-auto lg:max-w-full shadow-xl">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between px-6 pb-6 border-b border-gray-200 shadow-xl">
                 <div className="data">
                   <p className="font-semibold text-base leading-7 text-black">
                     Order Id:

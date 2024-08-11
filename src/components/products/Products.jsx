@@ -69,6 +69,8 @@ const Products = ({
               <option value="">Select</option>
               <option value="low-to-high">Price: Low to High</option>
               <option value="high-to-low">Price: High to Low</option>
+              <option value="best-selling">Best Selling</option>
+              <option value="best-rated">Best Rated</option>
             </select>
           </div>
         </div>

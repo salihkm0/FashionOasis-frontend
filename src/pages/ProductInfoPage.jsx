@@ -10,6 +10,7 @@ import {
   clearCart,
 } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
+import AddReview from "../components/review/ReviewForm";
 
 export const ProductInfoPage = () => {
   const [product, setProduct] = useState("");
@@ -19,12 +20,28 @@ export const ProductInfoPage = () => {
   const [sizeSelected, setSizeSelected] = useState(null);
 
   const dispatch = useDispatch();
+  const { register, handleSubmit, setValue, watch } = useForm();
+  const rating = watch("rating");
 
-  const size = sizeSelected && sizeSelected.size
+  const onSubmit = async (data) => {
+    try {
+      await axios.post(`http://localhost:5555/api/v1//my-reviews/add/${id}`, data);
+    } catch (error) {
+    }
+  };
+
+  const size = sizeSelected && sizeSelected.size;
 
   const handleAddToCart = (productId, quantity) => {
-    console.log(" productId :", productId, "quantity : ", quantity, 'size : ',size);
-    dispatch(addToCart({ productId, quantity, size}));
+    console.log(
+      " productId :",
+      productId,
+      "quantity : ",
+      quantity,
+      "size : ",
+      size
+    );
+    dispatch(addToCart({ productId, quantity, size }));
   };
 
   console.log(id);
@@ -61,7 +78,8 @@ export const ProductInfoPage = () => {
     return <div>Product not found</div>;
   }
 
-  const { imageUrls, description, offerPrice, price, brand, sizes ,_id} = product;
+  const { imageUrls, description, offerPrice, price, brand, sizes, _id } =
+    product;
   return (
     <>
       {loading ? (
@@ -119,7 +137,12 @@ export const ProductInfoPage = () => {
                   {description}
                 </h2>
                 <div className="flex space-x-2 mt-4">
-                <Rating name="half-rating-read" defaultValue={4.5} precision={0.5} readOnly />
+                  <Rating
+                    name="half-rating-read"
+                    defaultValue={4.5}
+                    precision={0.5}
+                    readOnly
+                  />
                   <h4 className="text-gray-800 text-base">500 Reviews</h4>
                 </div>
                 <div className="flex flex-wrap gap-4 mt-8">
@@ -170,7 +193,7 @@ export const ProductInfoPage = () => {
                   <button
                     type="button"
                     className="min-w-[200px] px-4 py-2.5 border border-blue-600 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded"
-                    onClick={()=>handleAddToCart(_id,1)}
+                    onClick={() => handleAddToCart(_id, 1)}
                   >
                     Add to cart
                   </button>
@@ -219,6 +242,27 @@ export const ProductInfoPage = () => {
                 </li>
               </ul>
             </div> */}
+            <div>
+              {/* <AddReview productId = {id}/> */}
+              <form onSubmit={handleSubmit(onSubmit)} className="h-[200px]">
+                <div>
+                  <Rating
+                    name="half-rating"
+                    precision={0.5}
+                    value={rating}
+                    onChange={(event, newValue) => setValue("rating", newValue)}
+                  />
+                </div>
+                <div>
+                  <textarea
+                    {...register("review")}
+                    placeholder="Write your review here"
+                    required
+                  />
+                </div>
+                <button type="submit">Submit Review</button>
+              </form>
+            </div>
             <div className="mt-16 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] p-6">
               <h3 className="text-xl font-bold text-gray-800">Reviews(10)</h3>
               <div className="grid md:grid-cols-2 gap-12 mt-4">
@@ -310,7 +354,12 @@ export const ProductInfoPage = () => {
                         John Doe
                       </h4>
                       <div className="flex space-x-1 mt-1">
-                      <Rating name="half-rating-read" defaultValue={3} precision={0.5} readOnly />
+                        <Rating
+                          name="half-rating-read"
+                          defaultValue={3}
+                          precision={0.5}
+                          readOnly
+                        />
                         <p className="text-xs !ml-2 font-semibold text-gray-800">
                           2 mins ago
                         </p>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Products from "../components/products/Products";
 import { FilterSidebar } from "../components/filterSidebar/FilterSidebar";
 import { productData } from "../Data/Data";
@@ -11,10 +11,38 @@ export const AllProductPage = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [priceSort, setPriceSort] = useState(null);
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity });
+  const [productRatings, setProductRatings] = useState({});
 
   const { products} = useSelector((state) => state.products);
 
   console.log(products)
+
+
+
+
+  // useEffect(() => {
+  //   const fetchRatings = async () => {
+  //     try {
+  //       const ratingsData = {};
+  //       for (let product of products) {
+  //         const response = await axios.get(
+  //           `http://localhost:5555/api/v1/reviews/${product._id}`
+  //         );
+  //         const reviews = response.data.reviews;
+  //         const avgRating =
+  //           reviews.reduce((sum, review) => sum + review.rating, 0) /
+  //           reviews.length;
+  //         ratingsData[product._id] = avgRating || 0;
+  //       }
+  //       setProductRatings(ratingsData);
+  //     } catch (error) {
+  //       console.error("Error fetching reviews:", error);
+  //     }
+  //   };
+
+  //   fetchRatings();
+  // }, [products]);
+
 
 
   // console.log('main cat:' ,selectedCategory , "sub: " ,selectedSubCategory , "color : ", selectedColor,"priceSort :" ,priceSort, "priceRange :" ,priceRange ) //for debug
@@ -95,7 +123,12 @@ export const AllProductPage = () => {
           return a.offerPrice - b.offerPrice;
         } else if (priceSort === "high-to-low") {
           return b.offerPrice - a.offerPrice;
+        } else if (priceSort === "best-selling") {
+          return b.sold - a.sold; // Assuming salesVolume is available
         }
+        // else if (priceSort === "best-rated") {
+        //   return (productRatings[b._id] || 0) - (productRatings[a._id] || 0);
+        // }
         return 0;
       });
     }
@@ -112,6 +145,7 @@ export const AllProductPage = () => {
         brand = {brand}
         offerPrice ={offerPrice}
         id ={_id}
+        // rating={productRatings[_id]}
       />
     ));
   }

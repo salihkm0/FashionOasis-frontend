@@ -111,7 +111,7 @@ export const CouponList = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {coupons.map((coupon) => (
+                  {coupons && coupons.map((coupon) => (
                     <tr key={coupon.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {coupon.code}

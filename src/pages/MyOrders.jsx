@@ -21,7 +21,7 @@ export const MyOrders = () => {
       console.log("response : ", response.data.orders);
       if (response.data.success) {
         setOrderDetails(response.data.orders);
-        setLodding(fasle);
+        setLodding(false);
       } else {
         console.log("error : ", response.data.error);
         setLodding(false);
@@ -45,6 +45,8 @@ export const MyOrders = () => {
   return (
     <>
       {lodding ? (
+        "Lodding"
+      ) : (
         <div className="min-w-screen min-h-screen py-5 my-5 mx-5 mt-[50px]">
           <div className="px-5 shadow-md py-2">
             <div className="mb-2">
@@ -58,33 +60,43 @@ export const MyOrders = () => {
               {orderDetails.map((order) => (
                 <div
                   key={order.orderId}
-                  className="mb-6 pb-6 border-b border-t rounded-md border-gray-200 shadow-xl p-5 flex items-center justify-between flex-wrap"
+                  className="mb-6 pb-6 border-b border-t rounded-md border-gray-200 shadow-xl p-5 flex flex-col items-center justify-center flex-wrap md:flex-row md:justify-between"
                 >
                   <div className="mb-3">
                     <span className="text-gray-600 font-semibold">
                       Order ID:
                     </span>
-                    {order.orderId}
+                    <p className="text-blue-600">#{order.orderId}</p>
                   </div>
                   {/* <div className="mb-3">
                 <span className="text-gray-600 font-semibold">Date:</span>
                 {order.date}
               </div> */}
                   <div className="mb-3 flex flex-col gap">
-                    <span className="text-gray-600 font-semibold">
-                      Order Status: {order.orderStatus}
+                    <span className="text-gray-600 font-semibold my-1">
+                      Order Status:
+                      <span className="text-green-400 p-1 rounded capitalize">
+                        {order.orderStatus}
+                      </span>
                     </span>
-                    <span className="text-gray-600 font-semibold">
-                      Payment Status: {order.paymentStatus}
+                    <span className="text-gray-600 font-semibold my-1">
+                      Payment Status:
+                      <span className="text-green-400 p-1 rounded capitalize">
+                        {order.paymentStatus}
+                      </span>
                     </span>
-                    <span className="text-gray-600 font-semibold ">
-                      Payment Method: {order.paymentMethod}
+                    <span className="text-gray-600 font-semibold my-1">
+                      Payment Method:
+                      <span className="text-yellow-400 p-1 rounded capitalize">
+                        {order.paymentMethod}
+                      </span>
                     </span>
                   </div>
                   <div className="mb-3">
                     <span className="text-gray-600 font-semibold">Items:</span>
                     <ul className="pl-5">
                       {order.products.map((item, index) => {
+                        console.log(item)
                         let product = products.find(
                           (product) => product._id === item.product
                         ); // Find the corresponding product
@@ -92,8 +104,8 @@ export const MyOrders = () => {
                           return null;
                         }
                         return (
-                          <li key={index}>
-                            {item.quantity} x {product.name} - $
+                          <li key={index} className="p-1 text-rose-600">
+                            {item.quantity} x {product.name} - {item.size} - $
                             {(product.offerPrice * item.quantity).toFixed(2)}
                           </li>
                         );
@@ -101,8 +113,8 @@ export const MyOrders = () => {
                     </ul>
                   </div>
                   <div className="mb-3">
-                    <span className="text-gray-600 font-semibold">Total:</span>{" "}
-                    ${order.totalAmount.toFixed(2)}
+                    <span className="text-gray-600 font-semibold">Total:</span>
+                   <span className="text-gray-600 text-lime-600 px-1">${order.totalAmount.toFixed(2)}</span> 
                   </div>
                   <div>
                     <button
@@ -117,8 +129,6 @@ export const MyOrders = () => {
             </div>
           </div>
         </div>
-      ) : (
-        "Lodding"
       )}
     </>
   );
