@@ -20,7 +20,7 @@ export const HomePageProductCard = () => {
     const filterBestSellers = () => {
       // Filter and sort the products based on sales or any other criteria
       const sortedProducts = products
-        .filter(product => product.sold > 0) // Filter out products with sales
+        .filter((product) => product.sold > 0) // Filter out products with sales
         .sort((a, b) => b.sold - a.sold) // Sort by sales in descending order
         .slice(0, 8); // Get top 8 best-selling products
       setBestSellers(sortedProducts);
@@ -28,7 +28,6 @@ export const HomePageProductCard = () => {
 
     filterBestSellers();
   }, [products]);
-
 
   // const handleAddToCart = (productId, quantity) => {
   //   dispatch(addToCart({ productId, quantity }));
@@ -47,7 +46,7 @@ export const HomePageProductCard = () => {
         <div className="container px-5 py-5 mx-auto">
           <div className="flex flex-wrap mx-4">
             {bestSellers.map((item, index) => {
-              const { imageUrls, name, offerPrice, brand ,_id} = item;
+              const { imageUrls, name, offerPrice, brand, _id } = item;
               return (
                 <div key={index} className="p-4 w-full sm:w-2/4 lg:w-1/4">
                   <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer">
@@ -78,11 +77,8 @@ export const HomePageProductCard = () => {
                       </h1>
 
                       <div className="flex justify-center ">
-                        {/* <button onClick={()=> handleAddToCart(_id,1)} className=" bg-green-500 hover:bg-green-500 w-full text-white py-[4px] rounded-lg font-bold">
-                          Add To Cart
-                        </button> */}
-                        <Link className=" bg-green-500 hover:bg-green-500 w-full text-white py-[4px] rounded-lg font-bold">
-                         View
+                        <Link to={`/product/${_id}`} className=" bg-green-500 hover:bg-green-500 w-full text-white py-[4px] rounded-lg font-bold text-center">
+                          View
                         </Link>
                       </div>
                     </div>

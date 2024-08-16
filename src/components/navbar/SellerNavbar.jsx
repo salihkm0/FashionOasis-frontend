@@ -13,7 +13,7 @@ export const SellerNavbar = () => {
     { name: "Seller Dashboard", to: "/seller/dashboard", current: false },
     { name: "Products", to: "/seller/products", current: false },
     // { name: "Users", to: "/se/users", current: false },
-    { name: "Orders", to: "/seller/Orders", current: false },
+    // { name: "Orders", to: "/seller/Orders", current: false },
     { name: "Coupons", to: "/seller/coupons", current: false },
     
     // { name: "Admin Dashboard", to: "/admin/", current: false },

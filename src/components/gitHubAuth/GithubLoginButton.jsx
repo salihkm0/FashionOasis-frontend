@@ -3,7 +3,7 @@ import React from 'react';
 
 const GithubLogin = () => {
   const handleGitHubLogin = () => {
-    window.location.href = 'https://fashionoasis-backend.onrender.com/api/v1/auth/github';
+    window.location.href = 'http://localhost:5555/api/v1/auth/github';
   };
 
   return (

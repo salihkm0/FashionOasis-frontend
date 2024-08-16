@@ -44,7 +44,7 @@ export const ProductInfoPage_2 = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://fashionoasis-backend.onrender.com/api/v1/product/${id}`
+          `http://localhost:5555/api/v1/product/${id}`
         );
         console.log(res.data);
         if (!res) {
@@ -221,7 +221,7 @@ export const ProductInfoPage_2 = () => {
 //       setLoading(true);
 //       try {
 //         const res = await axios.get(
-//           `https://fashionoasis-backend.onrender.com/api/v1/product/${id}`
+//           `http://localhost:5555/api/v1/product/${id}`
 //         );
 //         if (res) {
 //           setProduct(res.data.product);

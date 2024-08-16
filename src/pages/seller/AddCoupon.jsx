@@ -39,14 +39,25 @@ export const AddCoupon = ({ editMode, couponId }) => {
     if (editMode && couponId) {
       setLoading(true);
       axios
-        .get(`https://fashionoasis-backend.onrender.com/api/v1/coupon/${couponId}`)
+        .get(`http://localhost:5555/api/v1/coupon/${couponId}`)
         .then((res) => {
-          const { code, discountType, discountValue, expirationDate, usageLimit } = res.data.coupon;
+          const {
+            code,
+            discountType,
+            discountValue,
+            expirationDate,
+            usageLimit,
+          } = res.data.coupon;
           console.log(res.data.coupon);
           setValue("code", code);
           setValue("discountType", discountType);
           setValue("discountValue", discountValue);
-          setValue("expirationDate", expirationDate ? new Date(expirationDate).toISOString().substr(0, 10) : "");
+          setValue(
+            "expirationDate",
+            expirationDate
+              ? new Date(expirationDate).toISOString().substr(0, 10)
+              : ""
+          );
           setValue("usageLimit", usageLimit);
           setLoading(false);
         })
@@ -63,13 +74,21 @@ export const AddCoupon = ({ editMode, couponId }) => {
     try {
       let res;
       if (editMode && couponId) {
-        res = await axios.put(`https://fashionoasis-backend.onrender.com/api/v1/coupon/update/${couponId}`, data, {
-          withCredentials: true,
-        });
+        res = await axios.put(
+          `http://localhost:5555/api/v1/coupon/update/${couponId}`,
+          data,
+          {
+            withCredentials: true,
+          }
+        );
       } else {
-        res = await axios.post("https://fashionoasis-backend.onrender.com/api/v1/coupon/add", data, {
-          withCredentials: true,
-        });
+        res = await axios.post(
+          "http://localhost:5555/api/v1/coupon/add",
+          data,
+          {
+            withCredentials: true,
+          }
+        );
       }
 
       if (!res.data.success) {

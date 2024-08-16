@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "../../redux/authSlice";
 import { fetchProducts } from "../../redux/productsSlice";
 import { Loading } from "../../components/loading/Loading";
+import Navbar2 from "../../components/navbar/Navbar_2";
 // import { fetchCurrentUser } from '../../redux/authSlice';
 
 
@@ -38,7 +39,8 @@ export const UserLayout = () => {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
+      <Navbar2/>
       <div className="main-content min-h-screen">
         <ScrollTop />
         <Outlet />

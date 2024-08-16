@@ -32,7 +32,7 @@ export const Login = () => {
     console.log(data);
     try {
       const res = await axios.post(
-        "https://fashionoasis-backend.onrender.com/api/v1/signin",
+        "http://localhost:5555/api/v1/signin",
         data,
         {
           withCredentials: true,

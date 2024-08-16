@@ -9,11 +9,11 @@ const GoogleLogoutButton = () => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    await axios.post('https://fashionoasis-backend.onrender.com/api/v1/logout',{
+    await axios.post('http://localhost:5555/api/v1/logout',{
       withCredentials: true
     });
     dispatch(clearUser());
-    // Cookies.set('token', '')
+    Cookies.set('token', '')
     Cookies.remove('token')
 
   };

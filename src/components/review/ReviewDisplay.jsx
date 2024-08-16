@@ -148,7 +148,7 @@ const ReviewSection = ({ productId, refreshReviews }) => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `https://fashionoasis-backend.onrender.com/api/v1/reviews/${productId}`
+          `http://localhost:5555/api/v1/reviews/${productId}`
         );
         const reviewsData = response.data.reviews;
 

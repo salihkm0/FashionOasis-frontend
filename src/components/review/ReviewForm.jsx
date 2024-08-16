@@ -19,7 +19,7 @@ const AddReview = ({ productId, onReviewSubmit }) => {
       };
 
       const res = await axios.post(
-        `https://fashionoasis-backend.onrender.com/api/v1/my-reviews/add/${productId}`,
+        `http://localhost:5555/api/v1/my-reviews/add/${productId}`,
         requestData,
         { withCredentials: true }
       );
